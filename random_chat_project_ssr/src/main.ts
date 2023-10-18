@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
@@ -10,6 +10,7 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public')); // __dirname: 현재폴더, '..': 상위폴더
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
+  app.useGlobalPipes(new ValidationPipe()); // class-validation global로 사용하기 위함
 
   app.enableCors({
     origin: true,
